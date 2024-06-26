@@ -1,26 +1,33 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
 
 const Login = () => {
-  const handleLogin = (e) => {
+  const { handleLogin } = useContext(AuthenticationContext);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onLogin = (e) => {
     e.preventDefault();
-    // Lógica para iniciar sesión
-  }
+    handleLogin(email, password);
+  };
+
   return (
     <div className="min-h-screen flex justify-center items-center dark:bg-dark">
       <div className="w-full max-w-md mx-auto px-4">
-        {/* Añade clases para controlar el espacio alrededor del formulario */}
         <h1 className="text-3xl font-bold text-center mb-8 text-white hover:text-primary">Iniciar Sesión</h1>
-        <form className="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form onSubmit={onLogin} className="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div className="mb-4">
-            <label htmlFor="username" className="block text-white hover:text-primary text-sm font-bold mb-2">
-              Usuario:
+            <label htmlFor="email" className="block text-white hover:text-primary text-sm font-bold mb-2">
+              Email:
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
+              id="email"
+              name="email"
               className="w-full px-3 py-2 border rounded-md"
-              placeholder="Ingrese su usuario"
+              placeholder="Ingrese su email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="mb-4">
@@ -33,6 +40,8 @@ const Login = () => {
               name="password"
               className="w-full px-3 py-2 border rounded-md"
               placeholder="Ingrese su contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
           <div className="flex items-center justify-between">
@@ -46,12 +55,12 @@ const Login = () => {
               ¿Olvidó su contraseña?
             </a>
           </div>
-          <div className=" mt-4 flex items-center justify-between">
+          <div className="mt-4 flex items-center justify-between">
             <a
-                href="/register"
-                className="bg-green-600 text-white hover:text-primary px-3 py-2 rounded-md hover:bg-green-700"
-              >
-                Crea tu cuenta
+              href="/register"
+              className="bg-green-600 text-white hover:text-primary px-3 py-2 rounded-md hover:bg-green-700"
+            >
+              Crea tu cuenta
             </a>
           </div>
         </form>

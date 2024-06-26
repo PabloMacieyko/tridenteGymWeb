@@ -13,9 +13,8 @@ import ManageActivities from "./components/manageActivities/ManageActivities";
 import Activities from "./components/activities/Activities";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase/config";
-
-
-
+import ProtectedRoute from "./components/route/protected/ProtectedRoute";
+import { AuthenticationContextProvider } from "./services/authenticationContext/AuthenticationContext";
 
 const App = () => {
   React.useEffect(() => {
@@ -44,44 +43,37 @@ const App = () => {
     <div className="dark:bg-dark">
       <Body />
       <ImcCalculator /> {/* Renderizar ImcCalculator debajo de Body */}
-      <Activities activities={activities}/>
+      <Activities activities={activities} />
       <Professor />
     </div>
   );
-  
+
   const Contacto = () => (
     <div className="dark:bg-dark">
       <Footer />
     </div>
   );
-  
-  const Clases = () => (
-    <div className="dark:bg-dark">
-      {/* <Body /> */}
-  
-      <ManageActivities />
-    </div>
-  );
 
   return (
-
-      <div className="dark:bg-dark">
+    <div className="dark:bg-dark">
+      <AuthenticationContextProvider>
         <Router>
-          <Navbar/>
+          <Navbar />
           <Routes>
             <Route path="/" element={<MainContent />} />
             <Route path="/contacto" element={<Contacto />} />
-            <Route path="/clases" element={<Clases />} />
+            <Route
+              path="/clases"
+              element={<ProtectedRoute component={ManageActivities} />}
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
           </Routes>
           <Footer />
         </Router>
-      </div>
-
+      </AuthenticationContextProvider>
+    </div>
   );
 };
-
-
 
 export default App;

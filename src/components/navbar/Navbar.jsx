@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from "../../../public/logo.png";
+import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
 
-export const Navlinks = [
+
+const Navlinks = [
   {
     id: 1,
     name: "INICIO",
@@ -15,22 +17,18 @@ export const Navlinks = [
   },
   {
     id: 3,
-    name: "CLASES",
-    link: "/clases", // Enlace directo al ID de la sección Activity
-  },
-  {
-    id: 4,
     name: "LOGIN",
     link: "/login", // Mantenemos el enlace a la página de Login
   },
   {
-    id: 5,
+    id: 4,
     name: "CREAR CUENTA",
     link: "/register", // Mantenemos el enlace a la página de Register
   },
 ];
 
 const Navbar = () => {
+  const { isAdmin, user, handleLogout } = useContext(AuthenticationContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -39,19 +37,16 @@ const Navbar = () => {
 
   const handleNavClick = (link) => {
     if (link.startsWith("#")) {
-      // Si el enlace es un ID (Contacto o Clases), hacer scroll suave
       const targetId = link.substring(1); // Eliminar el símbolo #
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     } else if (link === "/login") {
-      // Si el enlace es Login, cerrar el menú y no hacer nada más
       if (menuOpen) {
         setMenuOpen(false);
       }
     } else {
-      // Si es un enlace externo (como Inicio), simplemente navegar
       window.location.href = link;
     }
   };
@@ -100,6 +95,27 @@ const Navbar = () => {
             </a>
           </li>
         ))}
+        {user && (
+          <li className="py-2 px-4">
+            <button
+              className="text-xl font-bold text-white hover:text-primary duration-300"
+              onClick={handleLogout}
+            >
+              Cerrar Sesión
+            </button>
+          </li>
+        )}
+        {isAdmin && (
+          <li className="py-2 px-4">
+            <a
+              href="/clases"
+              className="text-xl font-bold text-white hover:text-primary duration-300"
+              onClick={() => handleNavClick("/clases")}
+            >
+              CLASES
+            </a>
+          </li>
+        )}
       </ul>
     </nav>
   );

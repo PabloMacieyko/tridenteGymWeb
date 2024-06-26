@@ -3,27 +3,11 @@ import React, { useState } from 'react';
 
 
 const Register = () => {
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    try {
-      // const userCredential = await pb.collection('users').add({
-      //   username,
-      //   password,
-      //   email,
-      // });
-      const user = await pb.collection('users').create({
-        username,
-        password,
-        email,
-      });
-      console.log('User registered successfully', user);
-    } catch (error) {
-      console.error('Error registering user', error);
-    }
   };
 
   return (
@@ -31,20 +15,6 @@ const Register = () => {
       <div className="w-full max-w-md mx-auto px-4">
         <h1 className="text-3xl font-bold text-center mb-8 text-white hover:text-primary">Crea tu cuenta</h1>
         <form onSubmit={handleRegister} className="bg-white dark:bg-gray-800 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-          <div className="mb-4">
-            <label htmlFor="username" className="block text-white hover:text-primary text-sm font-bold mb-2">
-              Usuario:
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="w-full px-3 py-2 border rounded-md"
-              placeholder="Ingrese su usuario"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-          </div>
           <div className="mb-4">
             <label htmlFor="email" className="block text-white hover:text-primary text-sm font-bold mb-2">
               Email:
