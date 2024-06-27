@@ -1,28 +1,28 @@
-import React, { useContext, useState } from "react";
-import { GiHamburgerMenu } from "react-icons/gi";
-import Logo from "../../../public/logo.png";
-import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
+import React, { useContext, useState } from 'react';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import Logo from '../../../public/logo.png';
+import { AuthenticationContext } from '../../services/authenticationContext/AuthenticationContext';
 
 const Navlinks = [
   {
     id: 1,
-    name: "INICIO",
-    link: "/", // Enlace a la página principal
+    name: 'INICIO',
+    link: '/',
   },
   {
     id: 2,
-    name: "CONTACTO",
-    link: "#contacto", // Enlace directo al ID de la sección Footer
+    name: 'CONTACTO',
+    link: '#contacto',
   },
   {
     id: 3,
-    name: "LOGIN",
-    link: "/login", // Mantenemos el enlace a la página de Login
+    name: 'LOGIN',
+    link: '/login',
   },
   {
     id: 4,
-    name: "CREAR CUENTA",
-    link: "/register", // Mantenemos el enlace a la página de Register
+    name: 'CREAR CUENTA',
+    link: '/register',
   },
 ];
 
@@ -35,15 +35,11 @@ const Navbar = () => {
   };
 
   const handleNavClick = (link) => {
-    if (link.startsWith("#")) {
-      const targetId = link.substring(1); // Eliminar el símbolo #
+    if (link.startsWith('#')) {
+      const targetId = link.substring(1);
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
-        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    } else if (link === "/login") {
-      if (menuOpen) {
-        setMenuOpen(false);
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
       window.location.href = link;
@@ -80,7 +76,7 @@ const Navbar = () => {
       </button>
       <ul
         className={`md:flex md:items-center md:w-auto ${
-          menuOpen ? "block" : "hidden"
+          menuOpen ? 'block' : 'hidden'
         } md:block`}
       >
         {Navlinks.map(({ id, name, link }) => (
@@ -99,7 +95,7 @@ const Navbar = () => {
             <a
               href="/clases"
               className="text-xl font-bold text-white hover:text-primary duration-300"
-              onClick={() => handleNavClick("/clases")}
+              onClick={() => handleNavClick('/clases')}
             >
               CLASES
             </a>
@@ -110,7 +106,7 @@ const Navbar = () => {
             <a
               href="/usuarios"
               className="text-xl font-bold text-white hover:text-primary duration-300"
-              onClick={() => handleNavClick("/usuarios")}
+              onClick={() => handleNavClick('/usuarios')}
             >
               USUARIOS
             </a>
