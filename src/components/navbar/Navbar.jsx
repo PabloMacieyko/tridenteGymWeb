@@ -95,17 +95,7 @@ const Navbar = () => {
             </a>
           </li>
         ))}
-        {user && (
-          <li className="py-2 px-4">
-            <button
-              className="text-xl font-bold text-white hover:text-primary duration-300"
-              onClick={handleLogout}
-            >
-              Cerrar Sesión
-            </button>
-          </li>
-        )}
-        {isAdmin && (
+                {isAdmin && (
           <li className="py-2 px-4">
             <a
               href="/clases"
@@ -114,6 +104,16 @@ const Navbar = () => {
             >
               CLASES
             </a>
+          </li>
+        )}
+        {user && (
+          <li className="py-2 px-4">
+            <button
+              className="text-xl font-bold italic text-white hover:text-primary duration-300"
+              onClick={handleLogout}
+            >
+              Cerrar Sesión
+            </button>
           </li>
         )}
       </ul>

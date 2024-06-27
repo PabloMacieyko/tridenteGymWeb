@@ -1,8 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
 import {
-  doc,
-  getDoc,
   query,
   where,
   collection,
@@ -10,7 +7,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import PropTypes from "prop-types";
-import { auth, db } from "../../firebase/config";
+import {  db } from "../../firebase/config";
 
 export const AuthenticationContext = createContext();
 
@@ -18,22 +15,6 @@ export const AuthenticationContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        setUser(user);
-        const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists()) {
-          setIsAdmin(userDoc.data().rol === "admin");
-        }
-      } else {
-        setUser(null);
-        setIsAdmin(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
 
   const handleLogin = async (email, password) => {
     try {
