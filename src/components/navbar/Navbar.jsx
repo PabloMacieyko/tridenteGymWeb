@@ -3,7 +3,6 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import Logo from "../../../public/logo.png";
 import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
 
-
 const Navlinks = [
   {
     id: 1,
@@ -95,7 +94,7 @@ const Navbar = () => {
             </a>
           </li>
         ))}
-                {isAdmin && (
+        {isAdmin && (
           <li className="py-2 px-4">
             <a
               href="/clases"
@@ -103,6 +102,17 @@ const Navbar = () => {
               onClick={() => handleNavClick("/clases")}
             >
               CLASES
+            </a>
+          </li>
+        )}
+        {isAdmin && (
+          <li className="py-2 px-4">
+            <a
+              href="/usuarios"
+              className="text-xl font-bold text-white hover:text-primary duration-300"
+              onClick={() => handleNavClick("/usuarios")}
+            >
+              USUARIOS
             </a>
           </li>
         )}

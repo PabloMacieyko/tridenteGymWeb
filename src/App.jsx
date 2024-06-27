@@ -15,6 +15,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase/config";
 import ProtectedRoute from "./components/route/protected/ProtectedRoute";
 import { AuthenticationContextProvider } from "./services/authenticationContext/AuthenticationContext";
+import ManageUsers from "./components/manageUsers/ManageUsers";
 
 const App = () => {
   React.useEffect(() => {
@@ -65,6 +66,10 @@ const App = () => {
             <Route
               path="/clases"
               element={<ProtectedRoute component={ManageActivities} />}
+            />
+            <Route
+              path="/usuarios"
+              element={<ProtectedRoute component={ManageUsers} />}
             />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
