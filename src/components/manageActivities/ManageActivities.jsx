@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import NewActivity from "../newActivity/NewActivity";
-import Activities from "../activities/Activities";
 import {
   collection,
   addDoc,
