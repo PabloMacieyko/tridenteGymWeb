@@ -11,7 +11,7 @@ const ActivityItem = ({ name, price, description }) => {
       </h1>
       <p>{description}</p>
       <button className="bg-green-600 hover:text-primary text-white font-bold py-2 px-4 rounded">
-        <a href="#" className="group-hover:scale-105 duration-200">
+        <a href="login" className="group-hover:scale-105 duration-200">
           ANOTARSE
         </a>
       </button>

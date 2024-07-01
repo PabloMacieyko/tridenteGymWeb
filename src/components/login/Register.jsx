@@ -19,6 +19,9 @@ const Register = () => {
       });
       console.log('Usuario creado con ID:', docRef.id);
 
+      //Mostrar un mensaje de confirmación
+      alert('Usuario creado exitosamente');
+
       // Limpiar los campos
       setEmail('');
       setPassword('');
