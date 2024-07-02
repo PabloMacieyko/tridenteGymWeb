@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import NewActivity from "../newActivity/NewActivity";
 import {
   collection,
@@ -9,8 +9,10 @@ import {
   doc,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
+import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
 
 const ManageActivities = () => {
+  const { isAdmin, isProfe } = useContext(AuthenticationContext);
   const [activities, setActivities] = useState([]);
   const [selectedActivity, setSelectedActivity] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -81,6 +83,10 @@ const ManageActivities = () => {
     setShowDeleteConfirmation(false);
     setActivityToDelete(null);
   };
+
+  if (!isAdmin && !isProfe) {
+    return <div>No tienes permisos para acceder a esta página</div>;
+  }
 
   return (
     <div className="container mx-auto p-4">
