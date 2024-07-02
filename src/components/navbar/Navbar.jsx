@@ -14,16 +14,6 @@ const Navlinks = [
     name: 'CONTACTO',
     link: '#contacto',
   },
-  {
-    id: 3,
-    name: 'LOGIN',
-    link: '/login',
-  },
-  {
-    id: 4,
-    name: 'CREAR CUENTA',
-    link: '/register',
-  },
 ];
 
 const Navbar = () => {
@@ -112,15 +102,41 @@ const Navbar = () => {
             </a>
           </li>
         )}
-        {user && (
-          <li className="py-2 px-4">
-            <button
-              className="text-xl font-bold italic text-white hover:text-primary duration-300"
-              onClick={handleLogout}
-            >
-              Cerrar Sesión
-            </button>
-          </li>
+        {user ? (
+          <>
+            <li className="py-2 px-4">
+              <span className="text-xl font-bold italic text-white">{user.email}</span>
+            </li>
+            <li className="py-2 px-4">
+              <button
+                className="text-xl font-bold italic text-white hover:text-primary duration-300"
+                onClick={handleLogout}
+              >
+                Cerrar Sesión
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="py-2 px-4">
+              <a
+                href="/login"
+                className="text-xl font-bold text-white hover:text-primary duration-300"
+                onClick={() => handleNavClick('/login')}
+              >
+                LOGIN
+              </a>
+            </li>
+            <li className="py-2 px-4">
+              <a
+                href="/register"
+                className="text-xl font-bold text-white hover:text-primary duration-300"
+                onClick={() => handleNavClick('/register')}
+              >
+                CREAR CUENTA
+              </a>
+            </li>
+          </>
         )}
       </ul>
     </nav>
