@@ -27,7 +27,7 @@ const Navlinks = [
 ];
 
 const Navbar = () => {
-  const { isAdmin, user, handleLogout } = useContext(AuthenticationContext);
+  const { isAdmin, isProfe, user, handleLogout } = useContext(AuthenticationContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -90,7 +90,7 @@ const Navbar = () => {
             </a>
           </li>
         ))}
-        {isAdmin && (
+        {(isAdmin || isProfe) && (
           <li className="py-2 px-4">
             <a
               href="/clases"
