@@ -102,6 +102,17 @@ const Navbar = () => {
             </a>
           </li>
         )}
+        {!isAdmin && !isProfe && (
+          <li className="py-2 px-4">
+            <a
+              href="/cart"
+              className="text-xl font-bold text-white hover:text-primary duration-300"
+              onClick={() => handleNavClick('/cart')}
+            >
+              MIS ACTIVIDADES
+            </a>
+          </li>
+        )}
         {user ? (
           <>
             <li className="py-2 px-4">

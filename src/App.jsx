@@ -16,6 +16,7 @@ import { db } from "./firebase/config";
 import ProtectedRoute from "./components/route/protected/ProtectedRoute";
 import { AuthenticationContextProvider } from "./services/authenticationContext/AuthenticationContext";
 import ManageUsers from "./components/manageUsers/ManageUsers";
+import Cart from "./components/cart/Cart";
 
 const App = () => {
   React.useEffect(() => {
@@ -73,6 +74,7 @@ const App = () => {
             />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
           <Footer />
         </Router>
