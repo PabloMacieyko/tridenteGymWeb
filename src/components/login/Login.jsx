@@ -1,14 +1,22 @@
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
 
 const Login = () => {
   const { handleLogin } = useContext(AuthenticationContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const onLogin = (e) => {
+  const onLogin = async (e) => {
     e.preventDefault();
-    handleLogin(email, password);
+    try {
+      await handleLogin(email, password);
+      navigate("/");  // Hacer que cuando se iniciar la sesión se redireccione al "inicio"
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("Error al iniciar sesión");
+    }
   };
 
   return (
