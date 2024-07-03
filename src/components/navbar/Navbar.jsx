@@ -102,7 +102,7 @@ const Navbar = () => {
             </a>
           </li>
         )}
-        {!isAdmin && !isProfe && (
+        {!isAdmin && !isProfe && user && (
           <li className="py-2 px-4">
             <a
               href="/cart"

@@ -1,12 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { AuthenticationContext } from '../../services/authenticationContext/AuthenticationContext';
 
 const ActivityItem = ({ id, name, price, description, enrolledUsers }) => {
   const { user } = useContext(AuthenticationContext);
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     if (enrolledUsers && user) {
@@ -16,17 +17,18 @@ const ActivityItem = ({ id, name, price, description, enrolledUsers }) => {
 
   const handleEnroll = async () => {
     if (isEnrolled) {
-      alert('Ya estás anotado en esta actividad.');
+      setMessage('Ya estás anotado en esta actividad.');
       return;
     }
 
     try {
       const activityDoc = doc(db, 'activities', id);
-      const updatedEnrolledUsers = [...enrolledUsers, user.email];
-      await updateDoc(activityDoc, { enrolledUsers: updatedEnrolledUsers });
+      await updateDoc(activityDoc, { enrolledUsers: arrayUnion(user.email) });
       setIsEnrolled(true);
+      setMessage('Te has anotado con éxito.');
     } catch (error) {
       console.error('Error enrolling in activity:', error);
+      setMessage('PRIMERO DEBES LOGUEARTE');
     }
   };
 
@@ -44,6 +46,7 @@ const ActivityItem = ({ id, name, price, description, enrolledUsers }) => {
       >
         {isEnrolled ? 'Ya inscrito' : 'ANOTARSE'}
       </button>
+      {message && <p className="mt-2 text-red-500">{message}</p>}
     </div>
   );
 };
