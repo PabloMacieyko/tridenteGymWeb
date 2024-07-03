@@ -73,7 +73,7 @@ const Cart = () => {
         </div>
       ) : (
         <div>
-          <p className=" text-white text-lg font-semibold mt-2" >Aún no te anotaste a ninguna actividad. <a href="/activities" className="text-blue-500">Mira las actividades disponibles aquí</a>.</p>
+          <p className=" text-white text-lg font-semibold mt-2" >Aún no te anotaste a ninguna actividad. <a href="/" className="text-blue-500">Mira las actividades disponibles aquí</a>.</p>
         </div>
       )}
     </div>

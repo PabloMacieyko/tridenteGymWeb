@@ -46,6 +46,7 @@ export const AuthenticationContextProvider = ({ children }) => {
     setIsAdmin(false);
     setIsProfe(false);
     localStorage.removeItem('user');
+    window.location.href = '/';
   };
 
   return (

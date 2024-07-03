@@ -21,7 +21,8 @@ const Register = () => {
       // Crear el usuario
       const docRef = await addDoc(collection(db, 'users'), {
         email,
-        password
+        password,
+        rol: 'user',
       });
       console.log('Usuario creado con ID:', docRef.id);
 

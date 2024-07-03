@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { doc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, updateDoc, arrayUnion, getDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 import { AuthenticationContext } from '../../services/authenticationContext/AuthenticationContext';
 
 const ActivityItem = ({ id, name, price, description, enrolledUsers }) => {
-  const { user } = useContext(AuthenticationContext);
+  const { user, isAdmin, isProfe } = useContext(AuthenticationContext);
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -16,19 +16,30 @@ const ActivityItem = ({ id, name, price, description, enrolledUsers }) => {
   }, [enrolledUsers, user]);
 
   const handleEnroll = async () => {
-    if (isEnrolled) {
-      setMessage('Ya estás anotado en esta actividad.');
+    if (!user) {
+      setMessage('PRIMERO DEBES LOGUEARTE');
+      return;
+    }
+    
+    if (isAdmin || isProfe) {
+      setMessage('Solo los usuarios pueden inscribirse en actividades.');
       return;
     }
 
+
     try {
       const activityDoc = doc(db, 'activities', id);
+      const activitySnap = await getDoc(activityDoc);
+      if (activitySnap.exists() && activitySnap.data().enrolledUsers.includes(user.email)) {
+        setMessage('Ya estás anotado en esta actividad.');
+        return;
+      }
       await updateDoc(activityDoc, { enrolledUsers: arrayUnion(user.email) });
       setIsEnrolled(true);
       setMessage('Te has anotado con éxito.');
     } catch (error) {
       console.error('Error enrolling in activity:', error);
-      setMessage('PRIMERO DEBES LOGUEARTE');
+      setMessage('Hubo un error al inscribirte en la actividad.');
     }
   };
 

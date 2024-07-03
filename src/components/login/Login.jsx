@@ -1,14 +1,20 @@
 import React, { useContext, useState } from "react";
 import { AuthenticationContext } from "../../services/authenticationContext/AuthenticationContext";
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
-  const { handleLogin } = useContext(AuthenticationContext);
+  const { handleLogin, isAdmin, isProfe } = useContext(AuthenticationContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const onLogin = (e) => {
     e.preventDefault();
     handleLogin(email, password);
+    if (isAdmin|| isProfe) {
+      navigate("/clases");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
