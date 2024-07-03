@@ -1,6 +1,6 @@
 import React, { useReducer, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { collection, addDoc, updateDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 const initialUserForm = {
@@ -64,6 +64,15 @@ const NewUser = ({ onUserDataSaved, selectedUser }) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+
+    // Verificar si el correo ya existe
+    const q = query(collection(db, 'users'), where('email', '==', userForm.email));
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty && !selectedUser) {
+      alert('El correo electrónico ya está registrado.');
+      return;
+    }
+
     const userDto = {
       email: userForm.email,
       password: userForm.password,
