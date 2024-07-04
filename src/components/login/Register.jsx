@@ -9,6 +9,12 @@ const Register = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
 
+    // Validación de campos vacíos
+    if (email.trim() === '' || password.trim() === '') { //el trim elimina los espacios vacios
+      alert('Por favor, complete todos los campos.');
+      return;
+    }
+
     try {
       // Verificar si el correo ya existe
       const q = query(collection(db, 'users'), where('email', '==', email));

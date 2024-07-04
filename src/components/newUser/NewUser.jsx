@@ -132,7 +132,7 @@ const NewUser = ({ onUserDataSaved, selectedUser }) => {
             <label htmlFor="rol" className="block text-white hover:text-primary text-sm font-bold mb-2">
               Rol:
             </label>
-            <input
+            <select
               type="text"
               id="rol"
               name="rol"
@@ -140,7 +140,12 @@ const NewUser = ({ onUserDataSaved, selectedUser }) => {
               placeholder="Ingrese el rol"
               value={userForm.rol}
               onChange={(e) => changeHandler(e, 'ROL_UPDATED')}
-            />
+              >
+              <option value="" disabled className=' text-gray-500 italic'>Seleccione un rol</option>
+              <option value="admin">Admin</option>
+              <option value="profe">Profe</option>
+              <option value="user">User</option>
+            </select>
           </div>
           <div className="flex items-center justify-between">
             <button

@@ -122,7 +122,6 @@ const Navbar = () => {
               <button
                 className="text-xl font-bold italic text-white hover:text-primary duration-300"
                 onClick={handleLogout}
-                href="/"
               >
                 Cerrar Sesión
               </button>
