@@ -1,8 +1,23 @@
-# React + Vite
+# Trydente Gym Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Proyecto realizado para la cátedra Laboratorio de Computación III de la Tecnicatura Universitaria en Programación UTN Rosario
+--
 
-Currently, two official plugins are available:
+**Autores:**
+- Macieyko, Pablo Iván
+- Mendoza, Héctor Maximiliano
+- Rimache, Rodrigo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+--
+
+## Tecnologías Utilizadas
+
+- **React:** Librería de JavaScript para construir interfaces de usuario.
+- **Vite:** Herramienta de desarrollo rápida para proyectos de frontend.
+- **Tailwind CSS:** Framework de CSS para estilos rápidos y consistentes.
+- **Firebase:** Plataforma para desarrollar aplicaciones web y móviles.
+
+## Requisitos Previos
+
+- **Node.js:** Asegúrate de tener Node.js instalado.
+- **npm o Yarn:** Administrador de paquetes para instalar dependencias.
