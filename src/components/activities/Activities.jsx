@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import ActivityItem from "../activityItem/ActivityItem";
+import ActivitiesContext from "../../services/activitiesContext/ActivitiesContext";
 
-const Activities = ({ activities }) => {
-  
-  console.log('Activities:', activities);
+const Activities = () => {
+  // Obtén las actividades del contexto
+  const { activities } = useContext(ActivitiesContext);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {activities?.length > 0 ? (
+      {activities && activities.length > 0 ? (
         activities.map((activity) => (
           <ActivityItem
             key={activity.id}

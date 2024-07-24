@@ -1,51 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Body from "./components/body/Body";
 import Professor from "./components/professor/Professor";
-import Login from "./components/login/Login";
-import ImcCalculator from "./components/imcCalculator/ImcCalculator"; // Importar ImcCalculator
 import Footer from "./components/footer/Footer";
+import ImcCalculator from "./components/imcCalculator/ImcCalculator";
+import Body from "./components/body/Body";
 import Navbar from "./components/navbar/Navbar";
-import Register from "./components/login/Register";
-import ManageActivities from "./components/manageActivities/ManageActivities";
-import Activities from "./components/activities/Activities";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./firebase/config";
-import ProtectedRoute from "./components/route/protected/ProtectedRoute";
+import Login from "./components/login/Login";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthenticationContextProvider } from "./services/authenticationContext/AuthenticationContext";
+import Register from "./components/login/Register";
 import ManageUsers from "./components/manageUsers/ManageUsers";
+import ProtectedRoute from "./components/route/protected/ProtectedRoute";
+import Activities from "./components/activities/Activities";
+import ManageActivities from "./components/manageActivities/ManageActivities";
 import Cart from "./components/cart/Cart";
+import { ActivitiesProvider } from "./services/activitiesContext/ActivitiesContext";
+import { useEffect } from "react";
 
-const App = () => {
-  React.useEffect(() => {
-    AOS.init(); // Inicializar AOS
-  }, []);
-
-  const [activities, setActivities] = useState([]);
-
+function App() {
   useEffect(() => {
-    const fetchActivities = async () => {
-      try {
-        const querySnapshot = await getDocs(collection(db, "activities"));
-        const activitiesData = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setActivities(activitiesData);
-      } catch (error) {
-        console.error("Error fetching activities", error);
-      }
-    };
-    fetchActivities();
+    AOS.init({
+      offset: 100,
+      duration: 800,
+      easing: "ease-in-sine",
+      delay: 100,
+    });
+    AOS.refresh();
   }, []);
 
   const MainContent = () => (
     <div className="dark:bg-dark">
       <Body />
-      <ImcCalculator /> {/* Renderizar ImcCalculator debajo de Body */}
-      <Activities activities={activities} />
+      <ImcCalculator />
+      <Activities />
       <Professor />
     </div>
   );
@@ -59,6 +47,7 @@ const App = () => {
   return (
     <div className="dark:bg-dark">
       <AuthenticationContextProvider>
+        <ActivitiesProvider>
         <Router>
           <Navbar />
           <Routes>
@@ -78,9 +67,10 @@ const App = () => {
           </Routes>
           <Footer />
         </Router>
+        </ActivitiesProvider>
       </AuthenticationContextProvider>
     </div>
   );
-};
+}
 
 export default App;
