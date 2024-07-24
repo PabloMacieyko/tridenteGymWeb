@@ -8,7 +8,7 @@ Proyecto realizado para la cátedra Laboratorio de Computación III de la Tecnic
 - Mendoza, Héctor Maximiliano
 - Rimache, Rodrigo
 
---
+
 
 ## Tecnologías Utilizadas
 
